@@ -50,6 +50,20 @@ services:
     networks:
       - solicitacao_egpce
 
+  node:
+    image: node:20-alpine
+    container_name: solicitacao_egpce_node
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8039:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    networks:
+      - solicitacao_egpce
+    depends_on:
+      - app
+
 networks:
   solicitacao_egpce:
 
